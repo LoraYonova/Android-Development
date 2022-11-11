@@ -13,6 +13,10 @@
             android:id="@+id/action_first_fragment_to_second_fragment"
             app:destination="@id/secondFragment" />
 
+<!--        <argument-->
+<!--            android:name="firstParam"-->
+<!--            app:argType="string" />-->
+
     </fragment>
 
     <fragment
@@ -23,9 +27,9 @@
             android:id="@+id/acton_second_fragment_to_third_fragment"
             app:destination="@id/thirdFragment"/>
 
-        <argument
-            android:name="firstParam"
-            app:argType="string" />
+<!--        <argument-->
+<!--            android:name="firstParam"-->
+<!--            app:argType="string" />-->
     </fragment>
 
     <fragment
@@ -37,6 +41,10 @@
             android:id="@+id/action_third_fragment_to_fourth_fragment"
             app:destination="@id/fourthFragment"/>
 
+<!--        <argument-->
+<!--            android:name="secondParam"-->
+<!--            app:argType="string" />-->
+
     </fragment>
 
     <fragment
@@ -46,6 +54,10 @@
         <action
             android:id="@+id/action_fourth_fragment_to_first_fragment"
             app:destination="@id/firstFragment"/>
+
+<!--        <argument-->
+<!--            android:name="thirdParam"-->
+<!--            app:argType="string" />-->
 
     </fragment>
 
