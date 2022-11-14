@@ -13,5 +13,11 @@ class MainActivity : AppCompatActivity() {
             "my_shared_pref",
             Context.MODE_PRIVATE
         )
+
+        with(sharedPrefs.edit()) {
+            putString("string_key", "string_value")
+//            apply()
+            commit()
+        }
     }
 }
