@@ -3,11 +3,9 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myapplication.databinding.ActivityMainBinding
-import okhttp3.OkHttpClient
-import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     lateinit var binding: ActivityMainBinding
 
@@ -18,27 +16,15 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://restcountries.com/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient())
-            .build()
 
-        val countryService = retrofit.create(CountryService::class.java)
-        val countryRepository = CountriesRepository(countryService)
-
-        countryRepository.getCountries()?.enqueue(object: Callback<List<Country>> {
-
-            override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
-                val countries = response.body() ?: return
-                val adapter = CountryAdapter(countries)
-                binding.countriesList.adapter = adapter
-            }
-
-            override fun onFailure(call: Call<List<Country>>, t: Throwable) {
-
-            }
-
-        })
+        if (savedInstanceState == null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(
+                R.id.fragment_container_view, RecyclerFragment()
+            )
+            transaction.addToBackStack("first_transaction")
+            transaction.commit()
+        }
     }
+
 }
