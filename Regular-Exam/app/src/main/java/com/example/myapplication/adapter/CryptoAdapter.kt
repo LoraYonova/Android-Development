@@ -19,6 +19,7 @@ class CryptoAdapter(private val crypto: List<CryptoDetails>) :
        class CryptoViewHolder(val binding: CryptocurrenciesListItemBinding) :
                RecyclerView.ViewHolder(binding.root)
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CryptocurrenciesListItemBinding.inflate(layoutInflater, parent, false)

@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "crypto")
+@Entity(tableName = "crypto_lora")
 data class CryptoDetails(
     @PrimaryKey var id: String,
     @ColumnInfo(name = "image") var image: String,

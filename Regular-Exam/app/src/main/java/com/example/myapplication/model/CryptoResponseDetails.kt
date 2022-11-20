@@ -1,6 +1,6 @@
 package com.example.myapplication.model
 
-import com.example.myapplication.Roi
+import com.example.myapplication.model.Roi
 
 data class CryptoResponseDetails(
     val ath: Double,

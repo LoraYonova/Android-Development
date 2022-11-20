@@ -6,10 +6,10 @@ import com.example.myapplication.db.entity.CryptoDetails
 @Dao
 interface CryptoDao {
 
-    @Query("SELECT * FROM crypto")
+    @Query("SELECT * FROM crypto_lora")
     suspend fun getCrypto(): List<CryptoDetails>
 
-    @Query("SELECT * FROM crypto WHERE id=:id")
+    @Query("SELECT * FROM crypto_lora WHERE id=:id")
     suspend fun getCryptoById(id: String): CryptoDetails
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

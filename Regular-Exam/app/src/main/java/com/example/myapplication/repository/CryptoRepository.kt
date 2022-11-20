@@ -2,6 +2,8 @@ package com.example.myapplication.repository
 
 import android.content.Context
 import android.util.Log
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.myapplication.db.dao.CryptoDao
 import com.example.myapplication.db.entity.CryptoDetails
 import com.example.myapplication.model.CryptoResponseDetails
@@ -23,21 +25,23 @@ class CryptoRepository constructor(
                 cryptoDao.insertAll(roomCrypto ?: return arrayListOf())
             }
 
-         cryptoDao.getCrypto()
-        } catch (e :Exception) {
+            cryptoDao.getCrypto()
+        } catch (e: Exception) {
             arrayListOf()
         }
     }
 
     suspend fun getCryptoById(id: String): CryptoDetails? {
         return try {
-            return cryptoDao.getCryptoById(id)
-        } catch (e :Exception) {
+
+            cryptoDao.getCryptoById(id)
+
+        } catch (e: Exception) {
             null
         }
 //        return try {
 //            if (NetworkUtil.isConnected(context)) {
-//                val crypto = cryptoDao.getCrypto().execute().body()
+//                val crypto = cryptoService.getCrypto("usd").execute().body()
 //                val roomCrypto = crypto?.map { mapResponseToDbModel(it) }
 //                cryptoDao.insertAll(roomCrypto ?: return null)
 //            }
@@ -51,7 +55,6 @@ class CryptoRepository constructor(
     suspend fun updateCrypto(crypto: CryptoDetails) {
         cryptoDao.update(crypto)
     }
-
 
 
     private fun mapResponseToDbModel(response: CryptoResponseDetails): CryptoDetails {

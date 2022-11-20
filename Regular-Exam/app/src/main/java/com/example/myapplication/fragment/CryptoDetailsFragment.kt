@@ -1,5 +1,6 @@
 package com.example.myapplication.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -62,17 +63,39 @@ class CryptoDetailsFragment : Fragment() {
 
     private fun setDataBinding() {
         binding.crypto ?: return
+
+        var cryptoMarket = binding.crypto
+
         if (binding.crypto?.favourite == true) {
             binding.btnLike.setImageResource(android.R.drawable.star_big_on)
         } else {
             binding.btnLike.setImageResource(android.R.drawable.star_big_off)
         }
 
-        binding.btnLike.setOnClickListener {
-            val crypto = binding.crypto
-            crypto?.favourite = crypto?.favourite != true
+        binding.tvCoinMarketCap.text = "Market cap ${cryptoMarket?.market_cap}"
+        binding.tvCoinHigh24.text = "24 hours high ${cryptoMarket?.high_24h}"
+        binding.tvCoinMarketCapChangePercentage24h.text = "Market cap change percent 24h ${cryptoMarket?.market_cap_change_percentage_24h}"
+        if (cryptoMarket?.market_cap_change_percentage_24h!! <= 0){
+            binding.tvCoinMarketCapChangePercentage24h.setTextColor(Color.parseColor("#FF0000"))
+        } else {
+            binding.tvCoinMarketCapChangePercentage24h.setTextColor(Color.parseColor("#00FF00"))
+        }
+        binding.tvCoinPriceChangePercentage24h.text = "Price change 24h ${cryptoMarket?.price_change_percentage_24h}"
+        if (cryptoMarket?.price_change_percentage_24h!! <= 0){
+            binding.tvCoinPriceChangePercentage24h.setTextColor(Color.parseColor("#FF0000"))
+        } else {
+            binding.tvCoinPriceChangePercentage24h.setTextColor(Color.parseColor("#00FF00"))
+        }
 
-            if (crypto?.favourite == true) {
+        binding.tvCoinPrice.text = "Price ${cryptoMarket?.current_price}"
+
+        binding.tvCoinLowest24h.text = "Lowest 24h: ${cryptoMarket.low_24h}"
+
+        binding.btnLike.setOnClickListener {
+
+            cryptoMarket?.favourite = cryptoMarket?.favourite != true
+
+            if (cryptoMarket?.favourite == true) {
                 binding.btnLike.setImageResource(android.R.drawable.star_big_on)
             } else {
                 binding.btnLike.setImageResource(android.R.drawable.star_big_off)
@@ -80,7 +103,7 @@ class CryptoDetailsFragment : Fragment() {
 
             GlobalScope.launch {
                 (activity as? MainActivity)?.cryptoViewModel?.updateFavourites(
-                    crypto ?: return@launch
+                    cryptoMarket ?: return@launch
                 )
             }
         }
