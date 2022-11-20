@@ -22,8 +22,8 @@ class CryptoViewModel(
             cryptoListStateFlow.value = crypto
         }
 
-    suspend fun getCryptoByName(name: String) {
-        val crypto = cryptoRepository.getCryptoByName(name)
+    suspend fun getCryptoById(id: String) {
+        val crypto = cryptoRepository.getCryptoById(id)
         selectedCryptoStateFlow.value = crypto ?: return
     }
 

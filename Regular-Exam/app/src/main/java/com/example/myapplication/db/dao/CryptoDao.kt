@@ -9,8 +9,8 @@ interface CryptoDao {
     @Query("SELECT * FROM crypto")
     suspend fun getCrypto(): List<CryptoDetails>
 
-    @Query("SELECT * FROM crypto WHERE name=:name")
-    suspend fun getCryptoByName(name: String): CryptoDetails
+    @Query("SELECT * FROM crypto WHERE id=:id")
+    suspend fun getCryptoById(id: String): CryptoDetails
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(crypto: List<CryptoDetails>)

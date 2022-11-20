@@ -19,10 +19,10 @@ class CryptoDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val selectCryptoName = arguments?.getString("name", null)
+        val selectCryptoId = arguments?.getString("id", null)
         GlobalScope.launch {
-            (activity as? MainActivity)?.cryptoViewModel?.getCryptoByName(
-                selectCryptoName ?: return@launch
+            (activity as? MainActivity)?.cryptoViewModel?.getCryptoById(
+                selectCryptoId ?: return@launch
             )
         }
     }
@@ -54,7 +54,7 @@ class CryptoDetailsFragment : Fragment() {
                         .load(it.image)
                         .centerCrop()
                         .placeholder(R.drawable.ic_launcher_foreground)
-                        .into(binding.ivCrypto)
+                        .into(binding.ivLogo)
                 }
             }
         }

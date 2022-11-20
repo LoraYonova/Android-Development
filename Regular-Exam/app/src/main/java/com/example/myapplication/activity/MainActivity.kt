@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             db = Room.databaseBuilder(
                 applicationContext,
                 AppDatabase::class.java,
-            "yonova"
+            "yono"
             ).build()
 
 

@@ -42,10 +42,10 @@ class CryptoAdapter(private val crypto: List<CryptoDetails>) :
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(ivImage)
 
-            holder.binding.root.setOnClickListener {
+            root.setOnClickListener {
                 (it.context as MainActivity).supportFragmentManager.commit {
                     val bundle = Bundle()
-                    bundle.putString("name", currentCrypto.name)
+                    bundle.putString("id", currentCrypto.id)
                     replace(R.id.container_view, CryptoDetailsFragment::class.java, bundle)
                     addToBackStack("crypto_list_to_details")
                 }
