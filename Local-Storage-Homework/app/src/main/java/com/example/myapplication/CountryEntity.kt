@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class CountryEntity(
-    @PrimaryKey val uid: Int,
-    @ColumnInfo(name = "country_name") val countryName: String,
-    @ColumnInfo(name = "capital") val capital: String
-//    @ColumnInfo(name = "region") val region: String,
-//    @ColumnInfo(name = "population") val population: Int,
-//    @ColumnInfo(name = "area") val area: Int
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "capital") val capital: String,
+    @ColumnInfo(name = "region") val region: String,
+    @ColumnInfo(name = "population") val population: Int,
+    @ColumnInfo(name = "area") val area: Int
 )

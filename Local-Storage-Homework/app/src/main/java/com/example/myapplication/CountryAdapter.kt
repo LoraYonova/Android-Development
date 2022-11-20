@@ -34,6 +34,15 @@ class CountryAdapter(private val countries: List<Country>) :
 
     val countryDao = db.countryDao()
 
+    fun CountryInfo.toCountryEntity() = CountryEntity (
+        name = name,
+        capital = capital,
+        region = region,
+        population = population,
+        area = area
+
+        )
+
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
 
@@ -51,7 +60,8 @@ class CountryAdapter(private val countries: List<Country>) :
                 .into(ivFlag)
 
             GlobalScope.async {
-//               TODO
+
+                countryDao.insertAll(countries.map { it.toCountryEntity() })
             }
 
 
