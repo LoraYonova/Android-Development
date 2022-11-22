@@ -41,14 +41,13 @@
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="210dp"
+            android:layout_height="78dp"
             android:layout_marginStart="12dp"
             android:text="@{makeup.name}"
             android:textColor="#000"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:inputType="textCapSentences"
             app:layout_constraintStart_toEndOf="@id/iv_logo"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Makeup name" />
@@ -58,10 +57,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
             android:text="@{makeup.brand}"
+            android:textAllCaps="true"
             android:textColor="#000"
             android:textSize="18sp"
-            android:textAllCaps = "true"
             app:layout_constraintStart_toEndOf="@id/iv_logo"
             app:layout_constraintTop_toBottomOf="@id/tv_name"
             tools:text="Makeup brand" />
