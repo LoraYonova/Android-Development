@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.myapplication.db.dao.CocktailDao
 import com.example.myapplication.db.entity.CocktailEntity
 import com.example.myapplication.model.CocktailListResponse
+import com.example.myapplication.model.Drink
 import com.example.myapplication.service.CocktailService
 import com.example.myapplication.util.NetworkUtil
 
@@ -18,7 +19,8 @@ class CocktailRepository constructor(
             if (NetworkUtil.isConnected(context)) {
 
                 val cocktail = cocktailService.getCocktails().execute().body()
-                val roomCocktail = cocktail?.map { mapResponseToDbModel(it) }
+
+                val roomCocktail = cocktail?.drinks?.map { mapResponseToDbModel(it) }
                 cocktailDao.insertAll(roomCocktail ?: return arrayListOf())
             }
 
@@ -33,12 +35,12 @@ class CocktailRepository constructor(
         cocktailDao.update(cocktail)
     }
 
-    private fun mapResponseToDbModel(response: CocktailListResponse): CocktailEntity {
+    private fun mapResponseToDbModel(response: Drink): CocktailEntity {
         return CocktailEntity(
 
-            srtDrink = response.drinks[0].strDrink,
-            strDrinkThumb = response.drinks[1].strDrinkThumb,
-            idDrink = response.drinks[2].idDrink,
+            srtDrink = response.strDrink,
+            strDrinkThumb = response.strDrinkThumb,
+            idDrink = response.idDrink,
             favourite = false
         )
     }
