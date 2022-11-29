@@ -8,6 +8,7 @@ import retrofit2.http.Query
 
 interface CryptoService {
 
+
     @GET("coins/markets")
     fun getCrypto(@Query("vs_currency") currency: String = "usd"): Call<List<CryptoResponseDetails>>
 

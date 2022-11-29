@@ -5,14 +5,14 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.myapplication.adapter.MakeupAdapter
+import com.example.myapplication.adapter.CocktailAdapter
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.db.AppDatabase
-import com.example.myapplication.factory.MakeupViewModelFactory
-import com.example.myapplication.repository.MakeupRepository
-import com.example.myapplication.service.MakeupService
+import com.example.myapplication.factory.CocktailViewModelFactory
+import com.example.myapplication.repository.CocktailRepository
+import com.example.myapplication.service.CocktailService
 import com.example.myapplication.util.NetworkUtil
-import com.example.myapplication.viewmodel.MakeupViewModel
+import com.example.myapplication.viewmodel.CocktailViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,15 +22,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var makeupService: MakeupService
-    private lateinit var makeupRepository: MakeupRepository
-    lateinit var makeupViewModel: MakeupViewModel
+    private lateinit var cocktailService: CocktailService
+    private lateinit var cocktailRepository: CocktailRepository
+    lateinit var cocktailViewModel: CocktailViewModel
     lateinit var db: RoomDatabase
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://makeup-api.herokuapp.com/api/v1/")
+        .baseUrl("https://www.thecocktaildb.com/api/json/v1/1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,19 +50,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         GlobalScope.launch {
-            makeupViewModel.getMakeup()
+            cocktailViewModel.getCocktails()
         }
+
     }
 
     private fun observeData() {
         GlobalScope.launch {
-            makeupViewModel.makeupList.collect{
+            cocktailViewModel.cocktailsList.collect{
                 runOnUiThread{
-                    val makeup = it
-                    val sortedMakeup = makeup.sortedByDescending { it.price }
-                    val adapter = MakeupAdapter(sortedMakeup)
-                    binding.makeupList.adapter = adapter
-                    binding.tvMakeupCount.text = "Makeup Cont: ${it.size}"
+                    val cocktail = it
+                    val sortedCocktail = cocktail.sortedByDescending { it.srtDrink }
+                    val adapter = CocktailAdapter(sortedCocktail)
+                    binding.cocktailsList.adapter = adapter
+                    binding.tvCocktailsCount.text = "Cocktails count: ${it.size}"
                 }
             }
         }
@@ -71,15 +73,13 @@ class MainActivity : AppCompatActivity() {
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
-            "makeup_db"
+            "cocktails_lora_db"
         ).build()
 
-        val makeupDao = (db as AppDatabase).makeupDao()
-        makeupService = retrofit.create(MakeupService::class.java)
-        makeupRepository = MakeupRepository(this, makeupService, makeupDao)
-        val makeupViewModelFactory = MakeupViewModelFactory(makeupRepository)
-        makeupViewModel = ViewModelProvider(this, makeupViewModelFactory)[MakeupViewModel::class.java]
-
-
+        val cocktailDao = (db as AppDatabase).cocktailDao()
+        cocktailService = retrofit.create(CocktailService::class.java)
+        cocktailRepository = CocktailRepository(this, cocktailService, cocktailDao)
+        val cocktailViewModelFactory = CocktailViewModelFactory(cocktailRepository)
+        cocktailViewModel = ViewModelProvider(this, cocktailViewModelFactory)[CocktailViewModel::class.java]
     }
 }

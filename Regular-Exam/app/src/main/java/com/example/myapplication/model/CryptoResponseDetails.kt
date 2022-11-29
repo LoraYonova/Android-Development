@@ -1,7 +1,5 @@
 package com.example.myapplication.model
 
-import com.example.myapplication.model.Roi
-
 data class CryptoResponseDetails(
     val ath: Double,
     val ath_change_percentage: Double,
