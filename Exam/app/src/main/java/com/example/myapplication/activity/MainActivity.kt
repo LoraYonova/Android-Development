@@ -73,7 +73,13 @@ class MainActivity : AppCompatActivity() {
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
-            "cocktails_lora_db"
+            "cocktails_lora_db",
+        ).build()
+
+        db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "details",
         ).build()
 
         val cocktailDao = (db as AppDatabase).cocktailDao()

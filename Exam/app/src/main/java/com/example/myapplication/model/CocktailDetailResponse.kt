@@ -1,13 +1,9 @@
 package com.example.myapplication.model
 
-data class CocktailListResponse(
-    val drinks: List<Drink>
+data class CocktailDetailResponse(
+    val drinks: List<Drink2>
 )
-    data class Drink(
-//        val idDrink: String,
-//        val strDrink: String,
-//        val strDrinkThumb: String
-
+    data class Drink2(
         val dateModified: String,
         val idDrink: String,
         val strAlcoholic: String,
